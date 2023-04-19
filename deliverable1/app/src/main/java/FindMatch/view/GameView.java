@@ -1,7 +1,7 @@
-package mvc.view;
+package FindMatch.view;
 
-import mvc.model.GameModel;
-import mvc.controller.GameController;
+
+import FindMatch.controller.GameController;
 
 
 import java.awt.*;
@@ -11,7 +11,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
-public class GameView extends JFrame implements ActionListener{
+public class GameView extends JFrame implements ActionListener,Observer{
     private JButton easyBtn;
     private JButton mediumBtn;
     private JButton hardBtn;
@@ -19,10 +19,9 @@ public class GameView extends JFrame implements ActionListener{
     private JLabel levelLbl;
     private JPanel mainPanel;
     private JFrame mainFrame;
-    private GameModel model;
 	private GameController controller;
 
-    public GameView(GameController controller ) {
+    public GameView(GameController controller) {
 		this.controller=controller;
         mainFrame = new JFrame("Level Selector");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,11 +60,6 @@ public class GameView extends JFrame implements ActionListener{
 
         mediumBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            
-        
-
-        
-
         mainPanel.add(easyBtn, c);
         mainPanel.add(mediumBtn, c);
         mainPanel.add(hardBtn, c);
@@ -88,7 +82,11 @@ public class GameView extends JFrame implements ActionListener{
                 }
 			    mainFrame.setVisible(false);
 		
-			}       
+			}    
+    
+    public void update() {
+        showGrid();
+    }
     public void showGrid() {
         mainFrame.setVisible(true);
     }

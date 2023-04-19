@@ -1,11 +1,11 @@
-package mvc.model;
+package FindMatch.model;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
-public class MemoryMatcher extends JFrame implements ActionListener {
+public class MatchValidator extends JFrame implements ActionListener {
    private JButton[] buttons;
    private JPanel mainPanel;
    private JFrame mainFrame;
@@ -19,8 +19,9 @@ public class MemoryMatcher extends JFrame implements ActionListener {
    private JLabel score;
    private int gridSize;
    private double gridDimension;
+   private int score_val=0;
 
-   public MemoryMatcher(int gridSize) {
+   public MatchValidator(int gridSize) {
 	  this.gridSize=gridSize;
 	  this.gridDimension=Math.sqrt(gridSize);
 	  
@@ -64,7 +65,7 @@ public class MemoryMatcher extends JFrame implements ActionListener {
       mainPanel.add(Box.createRigidArea(new Dimension(0, 50)));
       mainPanel.add(status);
       
-      score = new JLabel("SCORE: 5");
+      score = new JLabel("SCORE: 0");
       score.setAlignmentX(Component.CENTER_ALIGNMENT);
       mainPanel.add(score);
       mainFrame.add(mainPanel, BorderLayout.CENTER);
@@ -101,6 +102,8 @@ public class MemoryMatcher extends JFrame implements ActionListener {
             found[prevIndex] = 1;
             selections = 0;
             status.setText("STATUS: Match found!");
+            score_val = score_val+1;
+            score.setText("Score: "+score_val);
          }
          else {
             buttons[prevIndex].setEnabled(true);
@@ -109,6 +112,8 @@ public class MemoryMatcher extends JFrame implements ActionListener {
             buttons[index].setText(" ");
             selections = 0;
             status.setText("STATUS: No match found.");
+            score_val = score_val-1;
+            score.setText("Score: "+score_val);
          }
       }
 
@@ -124,10 +129,5 @@ public class MemoryMatcher extends JFrame implements ActionListener {
          }
       }
       return true;
-   }
-
-
-   public static void main(String[] args) {
-      MemoryMatcher game = new MemoryMatcher(36);
    }
 }
