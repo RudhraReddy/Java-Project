@@ -11,7 +11,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
-public class GameView extends JFrame implements ActionListener,Observer{
+public class GameView extends JFrame implements ActionListener,ObserverInterface{
     private JButton easyBtn;
     private JButton mediumBtn;
     private JButton hardBtn;

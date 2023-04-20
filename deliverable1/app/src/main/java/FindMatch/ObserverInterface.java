@@ -1,5 +1,5 @@
 package FindMatch.view;
 
-public interface Observer {
+public interface ObserverInterface {
     public void update();
 }
