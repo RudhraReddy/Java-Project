@@ -70,19 +70,19 @@ public class GameView extends JFrame implements ActionListener,ObserverInterface
         mainFrame.setVisible(true);
     }
     @Override
-            public void actionPerformed(ActionEvent e) {
-		
-                JButton source = (JButton) e.getSource();
-                if (source.getText().equals("Easy")) {
-                    controller.setGridSize(4);
-                } else if (source.getText().equals("Medium")) {
-                    controller.setGridSize(16);
-                } else if (source.getText().equals("Hard")) {
-                    controller.setGridSize(36);
-                }
-			    mainFrame.setVisible(false);
-		
-			}    
+    public void actionPerformed(ActionEvent e) {
+	
+         JButton source = (JButton) e.getSource();
+         if (source.getText().equals("Easy")) {
+             controller.setGridSize(4);
+         } else if (source.getText().equals("Medium")) {
+             controller.setGridSize(16);
+         } else if (source.getText().equals("Hard")) {
+             controller.setGridSize(36);
+         }
+	    mainFrame.setVisible(false);
+	
+	}    
     
     public void update() {
         showGrid();
@@ -92,7 +92,7 @@ public class GameView extends JFrame implements ActionListener,ObserverInterface
     }
 	public void addLevelButtonListener(ActionListener listener) {
     easyBtn.addActionListener(listener);
-        hardBtn.addActionListener(listener);
-        mediumBtn.addActionListener(listener);
+    hardBtn.addActionListener(listener);
+    mediumBtn.addActionListener(listener);
 }
 }

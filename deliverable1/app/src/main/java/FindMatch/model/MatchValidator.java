@@ -20,60 +20,85 @@ public class MatchValidator extends JFrame implements ActionListener {
    private int gridSize;
    private double gridDimension;
    private int score_val=0;
+   public MatchValidator()
+   {
+	   System.out.println("MatchValidator");
+   }
 
    public MatchValidator(int gridSize) {
-	  this.gridSize=gridSize;
-	  this.gridDimension=Math.sqrt(gridSize);
-	  
-      mainFrame = new JFrame("Memory Matcher");
-      mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      mainFrame.setSize(400, 400);
-      mainFrame.setLayout(new BorderLayout());
+    this.gridSize=gridSize;
+    this.gridDimension=Math.sqrt(gridSize);
 
-      mainPanel = new JPanel();
-      mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-      
-      buttonPanel = new JPanel(new GridLayout((int)gridDimension, (int)gridDimension));
-      buttonPanel.setPreferredSize(new Dimension(300, 300));
-      buttonPanel.setMaximumSize(new Dimension(300, 300));
+    mainFrame = new JFrame("Memory Matcher");
+    mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    mainFrame.setSize(400, 400);
+    mainFrame.setLayout(new BorderLayout());
 
-      buttons = new JButton[gridSize];
-      values = new int[gridSize];
-      found = new int[gridSize];
+    mainPanel = new JPanel();
+    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-      // Generate random numbers for values array
-      ArrayList<Integer> list = new ArrayList<>();
-      for (int i = 0; i < gridSize/2; i++) {
-         list.add(i);
-         list.add(i);
-      }
-      Collections.shuffle(list);
-      for (int i = 0; i < gridSize; i++) {
-         buttons[i] = new JButton(" ");
-         buttons[i].addActionListener(this);
-         buttonPanel.add(buttons[i]);
-         values[i] = list.get(i);
+    buttonPanel = new JPanel(new GridLayout((int)gridDimension, (int)gridDimension));
+    buttonPanel.setPreferredSize(new Dimension(300, 300));
+    buttonPanel.setMaximumSize(new Dimension(300, 300));
 
-         found[i] = 0;
-      }
+    buttons = new JButton[gridSize];
+    values = new int[gridSize];
+    found = new int[gridSize];
 
-      mainPanel.add(Box.createRigidArea(new Dimension(0, 50)));
-      mainPanel.add(buttonPanel, BorderLayout.CENTER);
+    // Generate random numbers for values array
+    ArrayList<Integer> list = new ArrayList<>();
+    for (int i = 0; i < gridSize/2; i++) {
+        list.add(i);
+        list.add(i);
+    }
+    Collections.shuffle(list);
+    for (int i = 0; i < gridSize; i++) {
+        buttons[i] = new JButton(" ");
+        buttons[i].addActionListener(this);
+        buttonPanel.add(buttons[i]);
+        values[i] = list.get(i);
 
-      status = new JLabel("STATUS: ALL THE BEST!");
-      status.setAlignmentX(Component.CENTER_ALIGNMENT);
-      mainPanel.add(Box.createRigidArea(new Dimension(0, 50)));
-      mainPanel.add(status);
-      
-      score = new JLabel("SCORE: 0");
-      score.setAlignmentX(Component.CENTER_ALIGNMENT);
-      mainPanel.add(score);
-      mainFrame.add(mainPanel, BorderLayout.CENTER);
+        found[i] = 0;
+    }
 
-      mainFrame.pack();
-      mainFrame.setLocationRelativeTo(null);
-      mainFrame.setVisible(true);
-   }
+    mainPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+    mainPanel.add(buttonPanel, BorderLayout.CENTER);
+
+    status = new JLabel("STATUS: ALL THE BEST!");
+    status.setAlignmentX(Component.CENTER_ALIGNMENT);
+    mainPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+    mainPanel.add(status);
+
+    score = new JLabel("SCORE: 0");
+    score.setAlignmentX(Component.CENTER_ALIGNMENT);
+    mainPanel.add(score);
+    mainFrame.add(mainPanel, BorderLayout.CENTER);
+
+    // Create a timer to show the initial panel buttons for 2 seconds
+
+	// Show buttons and disable them for 2 seconds
+    for (int i = 0; i < gridSize; i++) {
+        buttons[i].setText("" + values[i]);
+        buttons[i].setEnabled(false);
+    }
+    javax.swing.Timer timer = new javax.swing.Timer(2000, new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
+            for (int i = 0; i < gridSize; i++) {
+                if (found[i] == 0) {
+                    buttons[i].setText(" ");
+                    buttons[i].setEnabled(true);
+                }
+            }
+        }
+    });
+    timer.setRepeats(false);
+    timer.start();
+
+    mainFrame.pack();
+    mainFrame.setLocationRelativeTo(null);
+    mainFrame.setVisible(true);
+}
+
 
    public void actionPerformed(ActionEvent e) {
       int index = -1;
