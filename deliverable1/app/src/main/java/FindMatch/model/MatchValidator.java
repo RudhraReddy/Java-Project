@@ -22,7 +22,6 @@ public class MatchValidator extends JFrame implements ActionListener {
    private int score_val=0;
    public MatchValidator()
    {
-	   System.out.println("MatchValidator");
    }
 
    public MatchValidator(int gridSize) {
