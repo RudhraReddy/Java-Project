@@ -10,6 +10,8 @@ public class MatchValidator extends JFrame implements ActionListener {
    private JPanel mainPanel;
    private JFrame mainFrame;
    private JPanel buttonPanel;
+   private JButton startButton;
+
 
    private int[] values;
    private int[] found;
@@ -43,6 +45,14 @@ public class MatchValidator extends JFrame implements ActionListener {
     buttons = new JButton[gridSize];
     values = new int[gridSize];
     found = new int[gridSize];
+	
+	startButton = new JButton("Start Game");
+    startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+    startButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            showButtonsFor2Seconds();
+            }
+        });
 
     // Generate random numbers for values array
     ArrayList<Integer> list = new ArrayList<>();
@@ -56,10 +66,9 @@ public class MatchValidator extends JFrame implements ActionListener {
         buttons[i].addActionListener(this);
         buttonPanel.add(buttons[i]);
         values[i] = list.get(i);
-
-        found[i] = 0;
+		found[i] = 0;
     }
-
+    mainPanel.add(startButton);
     mainPanel.add(Box.createRigidArea(new Dimension(0, 50)));
     mainPanel.add(buttonPanel, BorderLayout.CENTER);
 
@@ -73,10 +82,14 @@ public class MatchValidator extends JFrame implements ActionListener {
     mainPanel.add(score);
     mainFrame.add(mainPanel, BorderLayout.CENTER);
 
-    // Create a timer to show the initial panel buttons for 2 seconds
-
-	// Show buttons and disable them for 2 seconds
-    for (int i = 0; i < gridSize; i++) {
+    mainFrame.pack();
+    mainFrame.setLocationRelativeTo(null);
+    mainFrame.setVisible(true);
+}
+    private void showButtonsFor2Seconds() {
+        // Disable the start button
+        startButton.setEnabled(false);
+		for (int i = 0; i < gridSize; i++) {
         buttons[i].setText("" + values[i]);
         buttons[i].setEnabled(false);
     }
@@ -92,11 +105,8 @@ public class MatchValidator extends JFrame implements ActionListener {
     });
     timer.setRepeats(false);
     timer.start();
+    }
 
-    mainFrame.pack();
-    mainFrame.setLocationRelativeTo(null);
-    mainFrame.setVisible(true);
-}
 
 
    public void actionPerformed(ActionEvent e) {
