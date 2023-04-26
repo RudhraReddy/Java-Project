@@ -12,6 +12,7 @@ public class MatchValidator extends JFrame implements ActionListener {
    private JFrame mainFrame;
    private JPanel buttonPanel;
    private JButton startButton;
+   private JButton flipButton;
 
 
    private int[] values;
@@ -34,14 +35,16 @@ public class MatchValidator extends JFrame implements ActionListener {
       mainFrame = new JFrame("Memory Matcher");
       mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       mainFrame.setSize(400, 400);
+      mainFrame.setPreferredSize(new Dimension(600, 600));
       mainFrame.setLayout(new BorderLayout());
 
       mainPanel = new JPanel();
       mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
       buttonPanel = new JPanel(new GridLayout((int)gridDimension, (int)gridDimension));
-      buttonPanel.setPreferredSize(new Dimension(300, 300));
+      buttonPanel.setPreferredSize(new Dimension(500, 500));
       buttonPanel.setMaximumSize(new Dimension(300, 300));
+      buttonPanel.setEnabled(false);
 
       buttons = new JButton[gridSize];
       values = new int[gridSize];
@@ -52,6 +55,17 @@ public class MatchValidator extends JFrame implements ActionListener {
       startButton.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent e) {
             showButtonsFor2Seconds();
+            mainPanel.add(buttonPanel, BorderLayout.CENTER);
+         }
+      });
+
+      flipButton = new JButton("Flip");
+      flipButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+      flipButton.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent e) {
+            showButtonsFor2Seconds();
+            mainPanel.add(buttonPanel, BorderLayout.CENTER);
+            flipButton.setEnabled(false);
          }
       });
 
@@ -70,8 +84,9 @@ public class MatchValidator extends JFrame implements ActionListener {
          found[i] = 0;
       }
       mainPanel.add(startButton);
+      mainPanel.add(flipButton);
       mainPanel.add(Box.createRigidArea(new Dimension(0, 50)));
-      mainPanel.add(buttonPanel, BorderLayout.CENTER);
+      
 
       status = new JLabel("STATUS: ALL THE BEST!");
       status.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -93,13 +108,16 @@ public class MatchValidator extends JFrame implements ActionListener {
       startButton.setEnabled(false);
       for (int i = 0; i < gridSize; i++) {
          buttons[i].setText("" + values[i]);
+         buttons[i].setFont(new Font("Bold", Font.PLAIN, 24));
          buttons[i].setEnabled(false);
+         mainPanel.add(buttonPanel, BorderLayout.CENTER);
       }
       javax.swing.Timer timer = new javax.swing.Timer(2000, new ActionListener() {
          public void actionPerformed(ActionEvent evt) {
             for (int i = 0; i < gridSize; i++) {
                if (found[i] == 0) {
                   buttons[i].setText(" ");
+                  buttons[i].setFont(new Font("Bold", Font.PLAIN, 24));
                   buttons[i].setEnabled(true);
                }
             }
