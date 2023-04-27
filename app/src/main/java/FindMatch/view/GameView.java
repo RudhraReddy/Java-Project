@@ -20,14 +20,24 @@ public class GameView extends JFrame implements ActionListener,ObserverInterface
     private JPanel mainPanel;
     private JFrame mainFrame;
 	private GameController controller;
+    private JPanel contentPane;
 
     public GameView(GameController controller) {
 		this.controller=controller;
-        mainFrame = new JFrame("Level Selector");
+        mainFrame = new JFrame("Find a Match");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setSize(400, 300);
+        mainFrame.setPreferredSize(new Dimension(500, 500));
 
-        mainPanel = new JPanel();
+        mainPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Image image = new ImageIcon("gameImage.jpg").getImage();
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+
         mainPanel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.weightx = 0.0;
@@ -64,7 +74,8 @@ public class GameView extends JFrame implements ActionListener,ObserverInterface
         mainPanel.add(mediumBtn, c);
         mainPanel.add(hardBtn, c);
 
-        mainFrame.add(mainPanel);
+        mainFrame.setContentPane(mainPanel);
+        //mainFrame.add(mainPanel);
         mainFrame.pack();
         mainFrame.setPreferredSize(mainFrame.getSize());
         mainFrame.setVisible(true);

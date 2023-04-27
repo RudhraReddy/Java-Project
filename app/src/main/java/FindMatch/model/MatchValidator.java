@@ -32,18 +32,18 @@ public class MatchValidator extends JFrame implements ActionListener {
       this.gridSize = gridSize;
       this.gridDimension = Math.sqrt(gridSize);
 
-      mainFrame = new JFrame("Memory Matcher");
+      mainFrame = new JFrame("Find a Match");
       mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      mainFrame.setSize(400, 400);
-      mainFrame.setPreferredSize(new Dimension(600, 600));
-      mainFrame.setLayout(new BorderLayout());
+      mainFrame.setPreferredSize(new Dimension(700, 600));
+      //mainFrame.setLayout(null);
 
       mainPanel = new JPanel();
-      mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+      mainPanel.setLayout(null);
 
       buttonPanel = new JPanel(new GridLayout((int)gridDimension, (int)gridDimension));
       buttonPanel.setPreferredSize(new Dimension(500, 500));
-      buttonPanel.setMaximumSize(new Dimension(300, 300));
+      buttonPanel.setMaximumSize(new Dimension(500, 500));
+      buttonPanel.setBounds(125,100,400,400);
       buttonPanel.setEnabled(false);
 
       buttons = new JButton[gridSize];
@@ -51,15 +51,18 @@ public class MatchValidator extends JFrame implements ActionListener {
       found = new int[gridSize];
 
       startButton = new JButton("Start Game");
-      startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+      startButton.setBounds(290,30,100,40);
       startButton.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent e) {
             showButtonsFor2Seconds();
-            mainPanel.add(buttonPanel, BorderLayout.CENTER);
+            mainPanel.add(buttonPanel);
+            flipButton.setEnabled(true);
          }
       });
 
-      flipButton = new JButton("Flip");
+      flipButton = new JButton("Flip for Help");
+      flipButton.setBounds(530,490,120,40);
+      flipButton.setEnabled(false);
       flipButton.setAlignmentX(Component.CENTER_ALIGNMENT);
       flipButton.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent e) {
@@ -88,13 +91,13 @@ public class MatchValidator extends JFrame implements ActionListener {
       mainPanel.add(Box.createRigidArea(new Dimension(0, 50)));
       
 
-      status = new JLabel("STATUS: ALL THE BEST!");
-      status.setAlignmentX(Component.CENTER_ALIGNMENT);
+      status = new JLabel("ALL THE BEST!");
+      status.setBounds(270,460,150,100);
       mainPanel.add(Box.createRigidArea(new Dimension(0, 50)));
       mainPanel.add(status);
 
       score = new JLabel("SCORE: 0");
-      score.setAlignmentX(Component.CENTER_ALIGNMENT);
+      score.setBounds(300,480,100,100);
       mainPanel.add(score);
       mainFrame.add(mainPanel, BorderLayout.CENTER);
 
@@ -153,7 +156,7 @@ public class MatchValidator extends JFrame implements ActionListener {
             found[index] = 1;
             found[prevIndex] = 1;
             selections = 0;
-            status.setText("STATUS: Match found!");
+            status.setText("STATUS: Match found! \uD83D\uDC4D");
             score_val = score_val+1;
             score.setText("Score: "+score_val);
          }
@@ -163,7 +166,7 @@ public class MatchValidator extends JFrame implements ActionListener {
             buttons[prevIndex].setText(" ");
             buttons[index].setText(" ");
             selections = 0;
-            status.setText("STATUS: No match found.");
+            status.setText("STATUS: Incorrect Match \uD83D\uDC4E");
             score_val = score_val-1;
             score.setText("Score: "+score_val);
          }
@@ -175,7 +178,7 @@ public class MatchValidator extends JFrame implements ActionListener {
             FileWriter writer = new FileWriter("score.txt", true);
             writer.write(score_val + "\n");
             writer.close();
-            status.setText("STATUS: Score saved to file.");
+            status.setText("Congratulations.");
          } catch (IOException ex) {
             ex.printStackTrace();
          }
