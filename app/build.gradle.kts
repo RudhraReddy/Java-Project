@@ -24,6 +24,14 @@ dependencies {
     implementation("com.google.guava:guava:31.1-jre")
 }
 
+sourceSets {
+    main {
+        resources {
+            resources.setSrcDirs(resources.srcDirs + file("src/main/resources"))
+        }
+    }
+}
+
 application {
     // Define the main class for the application.
     mainClass.set("FindMatch.App")

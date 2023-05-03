@@ -28,6 +28,10 @@ public class GameController implements ControllerInterface{
         view.showGrid();
 	}
 
+	public int getGridSize() {
+		return gridSize;
+	}
+
     
 }
 

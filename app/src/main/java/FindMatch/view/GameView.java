@@ -2,7 +2,7 @@ package FindMatch.view;
 
 
 import FindMatch.controller.GameController;
-
+import FindMatch.view.GameImage;
 
 import java.awt.*;
 import java.awt.GridBagConstraints;
@@ -10,12 +10,14 @@ import java.awt.GridBagLayout;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
+import java.io.File;
 
 public class GameView extends JFrame implements ActionListener,ObserverInterface{
-    private JButton easyBtn;
-    private JButton mediumBtn;
-    private JButton hardBtn;
+    public JButton easyButton;
+    public JButton mediumButton;
+    public JButton hardButton;
     private JLabel gameNameLbl;
+    private JLabel imageLabel;
     private JLabel levelLbl;
     private JPanel mainPanel;
     private JFrame mainFrame;
@@ -29,15 +31,11 @@ public class GameView extends JFrame implements ActionListener,ObserverInterface
         mainFrame.setSize(400, 300);
         mainFrame.setPreferredSize(new Dimension(500, 500));
 
-        mainPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Image image = new ImageIcon("gameImage.jpg").getImage();
-                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-            }
-        };
+        //ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/gameImage.jpg"));
+        //System.out.println(getClass().getResource("/gameImage.jpg"));
+        //mainFrame.setContentPane(new JLabel(backgroundImage));
 
+        mainPanel = new JPanel();
         mainPanel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.weightx = 0.0;
@@ -58,24 +56,25 @@ public class GameView extends JFrame implements ActionListener,ObserverInterface
         levelLbl.setFont(font1);
         mainPanel.add(levelLbl, c);
 
-        easyBtn = new JButton("Easy");
-        easyBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-		easyBtn.addActionListener(this);
-        hardBtn = new JButton("Hard");
-		hardBtn.addActionListener(this);
+        easyButton = new JButton("Easy");
+        easyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		easyButton.addActionListener(this);
+        hardButton = new JButton("Hard");
+		hardButton.addActionListener(this);
 
-        hardBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mediumBtn = new JButton("Medium");
-		mediumBtn.addActionListener(this);
+        hardButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mediumButton = new JButton("Medium");
+		mediumButton.addActionListener(this);
 
-        mediumBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mediumButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        mainPanel.add(easyBtn, c);
-        mainPanel.add(mediumBtn, c);
-        mainPanel.add(hardBtn, c);
+        mainPanel.add(easyButton, c);
+        mainPanel.add(mediumButton, c);
+        mainPanel.add(hardButton, c);
+        //mainPanel.add(imageLabel);
 
-        mainFrame.setContentPane(mainPanel);
-        //mainFrame.add(mainPanel);
+        //mainFrame.setContentPane(mainPanel);
+        mainFrame.add(mainPanel);
         mainFrame.pack();
         mainFrame.setPreferredSize(mainFrame.getSize());
         mainFrame.setVisible(true);
@@ -91,8 +90,7 @@ public class GameView extends JFrame implements ActionListener,ObserverInterface
          } else if (source.getText().equals("Hard")) {
              controller.setGridSize(36);
          }
-	    mainFrame.setVisible(false);
-	
+	    mainFrame.setVisible(false);	
 	}    
     
     public void update() {
@@ -102,8 +100,8 @@ public class GameView extends JFrame implements ActionListener,ObserverInterface
         mainFrame.setVisible(true);
     }
 	public void addLevelButtonListener(ActionListener listener) {
-    easyBtn.addActionListener(listener);
-    hardBtn.addActionListener(listener);
-    mediumBtn.addActionListener(listener);
+    easyButton.addActionListener(listener);
+    hardButton.addActionListener(listener);
+    mediumButton.addActionListener(listener);
 }
 }
