@@ -14,7 +14,6 @@ public class MatchValidator extends JFrame implements ActionListener {
    private JButton startButton;
    private JButton flipButton;
 
-
    private int[] values;
    private int[] found;
    private int selections;
@@ -26,7 +25,8 @@ public class MatchValidator extends JFrame implements ActionListener {
    private int score_val = 0;
    private String scoreFilePath = "scores.txt";
 
-   public MatchValidator() {}
+   public MatchValidator() {
+   }
 
    public MatchValidator(int gridSize) {
       this.gridSize = gridSize;
@@ -35,15 +35,15 @@ public class MatchValidator extends JFrame implements ActionListener {
       mainFrame = new JFrame("Find a Match");
       mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       mainFrame.setPreferredSize(new Dimension(700, 600));
-      //mainFrame.setLayout(null);
+      // mainFrame.setLayout(null);
 
       mainPanel = new JPanel();
       mainPanel.setLayout(null);
 
-      buttonPanel = new JPanel(new GridLayout((int)gridDimension, (int)gridDimension));
+      buttonPanel = new JPanel(new GridLayout((int) gridDimension, (int) gridDimension));
       buttonPanel.setPreferredSize(new Dimension(500, 500));
       buttonPanel.setMaximumSize(new Dimension(500, 500));
-      buttonPanel.setBounds(125,100,400,400);
+      buttonPanel.setBounds(125, 100, 400, 400);
       buttonPanel.setEnabled(false);
 
       buttons = new JButton[gridSize];
@@ -51,7 +51,7 @@ public class MatchValidator extends JFrame implements ActionListener {
       found = new int[gridSize];
 
       startButton = new JButton("Start Game");
-      startButton.setBounds(290,30,100,40);
+      startButton.setBounds(290, 30, 100, 40);
       startButton.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent e) {
             showButtonsFor2Seconds();
@@ -61,7 +61,7 @@ public class MatchValidator extends JFrame implements ActionListener {
       });
 
       flipButton = new JButton("Flip for Help");
-      flipButton.setBounds(530,490,120,40);
+      flipButton.setBounds(530, 490, 120, 40);
       flipButton.setEnabled(false);
       flipButton.setAlignmentX(Component.CENTER_ALIGNMENT);
       flipButton.addActionListener(new ActionListener() {
@@ -74,7 +74,7 @@ public class MatchValidator extends JFrame implements ActionListener {
 
       // Generate random numbers for values array
       ArrayList<Integer> list = new ArrayList<>();
-      for (int i = 0; i < gridSize/2; i++) {
+      for (int i = 0; i < gridSize / 2; i++) {
          list.add(i);
          list.add(i);
       }
@@ -89,15 +89,14 @@ public class MatchValidator extends JFrame implements ActionListener {
       mainPanel.add(startButton);
       mainPanel.add(flipButton);
       mainPanel.add(Box.createRigidArea(new Dimension(0, 50)));
-      
 
       status = new JLabel("ALL THE BEST!");
-      status.setBounds(270,460,150,100);
+      status.setBounds(270, 460, 150, 100);
       mainPanel.add(Box.createRigidArea(new Dimension(0, 50)));
       mainPanel.add(status);
 
       score = new JLabel("SCORE: 0");
-      score.setBounds(300,480,100,100);
+      score.setBounds(300, 480, 100, 100);
       mainPanel.add(score);
       mainFrame.add(mainPanel, BorderLayout.CENTER);
 
@@ -150,25 +149,23 @@ public class MatchValidator extends JFrame implements ActionListener {
       if (selections == 0) {
          prevIndex = index;
          selections++;
-      }
-      else {
+      } else {
          if (values[index] == values[prevIndex]) {
             found[index] = 1;
             found[prevIndex] = 1;
             selections = 0;
             status.setText("STATUS: Match found! \uD83D\uDC4D");
-            score_val = score_val+1;
-            score.setText("Score: "+score_val);
-         }
-         else {
+            score_val = score_val + 1;
+            score.setText("Score: " + score_val);
+         } else {
             buttons[prevIndex].setEnabled(true);
             buttons[index].setEnabled(true);
             buttons[prevIndex].setText(" ");
             buttons[index].setText(" ");
             selections = 0;
             status.setText("STATUS: Incorrect Match \uD83D\uDC4E");
-            score_val = score_val-1;
-            score.setText("Score: "+score_val);
+            score_val = score_val - 1;
+            score.setText("Score: " + score_val);
          }
       }
 
@@ -183,8 +180,9 @@ public class MatchValidator extends JFrame implements ActionListener {
             ex.printStackTrace();
          }
       }
-	  
+
    }
+
    public boolean allFound() {
       for (int i = 0; i < gridSize; i++) {
          if (found[i] == 0) {
