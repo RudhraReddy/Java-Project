@@ -7,23 +7,25 @@ import java.util.*;
 import java.io.*;
 
 public class MatchValidator extends JFrame implements ActionListener {
-   public JButton[] buttons;
+   private JButton[] buttons;
    private JPanel mainPanel;
    private JFrame mainFrame;
    private JPanel buttonPanel;
    private JButton startButton;
    private JButton flipButton;
 
-   public int[] values;
-   public int[] found;
+   private int[] values;
+   private int[] found;
    private int selections;
    private int prevIndex;
-   public JLabel status;
+   private JLabel status;
    private JLabel score;
    private int gridSize;
    private double gridDimension;
-   public int score_val = 0;
+   private int score_val = 0;
    private String scoreFilePath = "scores.txt";
+   private String line ="";
+
 
    public MatchValidator() {
    }
@@ -149,8 +151,7 @@ public class MatchValidator extends JFrame implements ActionListener {
       if (selections == 0) {
          prevIndex = index;
          selections++;
-      } 
-      else {
+      } else {
          if (values[index] == values[prevIndex]) {
             found[index] = 1;
             found[prevIndex] = 1;
@@ -170,19 +171,51 @@ public class MatchValidator extends JFrame implements ActionListener {
          }
       }
 
+      
       if (allFound()) {
          status.setText("STATUS: Congratulations! You found all matches.");
          try {
-            FileWriter writer = new FileWriter("score.txt", true);
-            writer.write(score_val + "\n");
-            writer.close();
-            status.setText("Congratulations.");
-         } catch (IOException ex) {
-            ex.printStackTrace();
-         }
-      }
+			 int highScore=0;
+    FileReader fileReader = new FileReader("score.txt");
+    BufferedReader bufferedReader = new BufferedReader(fileReader);
+    String line;
+    StringBuilder stringBuilder = new StringBuilder();
+    while ((line = bufferedReader.readLine()) != null) {
+        stringBuilder.append(line).append("\n");
+    }
+    bufferedReader.close();
+    String fileContents = stringBuilder.toString();
+    String[] lines = fileContents.split("\n");
+    for (String l : lines) {
+        System.out.println(l);
+		int colonIndex = l.indexOf(":");
+        String value = l.substring(colonIndex + 1).trim();
+        if(gridSize ==4 && l.contains("Easy"))
+		{
+			highScore = Integer.parseInt(value);
+        }
+		else if(gridSize ==16 && l.contains("Medium"))
+		{
+			highScore = Integer.parseInt(value);
+        }
+		else if(gridSize ==36 && l.contains("Medium"))
+		{
+			highScore = Integer.parseInt(value);
+        }
+		if (score_val > highScore) {
+			// Write the new score_val to the file
+			FileWriter writer = new FileWriter("score.txt", false);
+			writer.write(String.valueOf(score_val));
+			writer.close();
+        }
+	    }
+	}catch (IOException ex) {
+    ex.printStackTrace();
+    }
 
    }
+   }
+   
 
    public boolean allFound() {
       for (int i = 0; i < gridSize; i++) {
