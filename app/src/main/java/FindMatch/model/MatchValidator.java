@@ -7,22 +7,22 @@ import java.util.*;
 import java.io.*;
 
 public class MatchValidator extends JFrame implements ActionListener {
-   private JButton[] buttons;
+   public JButton[] buttons;
    private JPanel mainPanel;
    private JFrame mainFrame;
    private JPanel buttonPanel;
    private JButton startButton;
    private JButton flipButton;
 
-   private int[] values;
-   private int[] found;
+   public int[] values;
+   public int[] found;
    private int selections;
    private int prevIndex;
-   private JLabel status;
+   public JLabel status;
    private JLabel score;
    private int gridSize;
    private double gridDimension;
-   private int score_val = 0;
+   public int score_val = 0;
    private String scoreFilePath = "scores.txt";
 
    public MatchValidator() {
@@ -149,7 +149,8 @@ public class MatchValidator extends JFrame implements ActionListener {
       if (selections == 0) {
          prevIndex = index;
          selections++;
-      } else {
+      } 
+      else {
          if (values[index] == values[prevIndex]) {
             found[index] = 1;
             found[prevIndex] = 1;
