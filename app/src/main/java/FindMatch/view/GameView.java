@@ -23,10 +23,10 @@ public class GameView extends JFrame implements ActionListener,ObserverInterface
     private JPanel contentPane;
 
     public GameView(GameController controller) {
-        super("Find a Match");
         this.controller = controller;
 
         mainFrame = new JFrame("Find a Match");
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setPreferredSize(new Dimension(500,500));
 
         mainPanel = new JPanel();
@@ -65,9 +65,8 @@ public class GameView extends JFrame implements ActionListener,ObserverInterface
         mainPanel.add(easyButton, c);
         mainPanel.add(mediumButton, c);
         mainPanel.add(hardButton, c);
-        //mainPanel.add(imageLabel);
 
-        //mainFrame.setContentPane(mainPanel);
+
         mainFrame.add(mainPanel);
         mainFrame.pack();
         mainFrame.setPreferredSize(mainFrame.getSize());
