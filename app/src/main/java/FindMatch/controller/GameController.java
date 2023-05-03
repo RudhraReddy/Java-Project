@@ -10,28 +10,26 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
-public class GameController implements ControllerInterface {
+
+public class GameController implements ControllerInterface{
 	private int gridSize;
-	private GameView view;
-	private MatchValidator match;
-
-	public GameController() {
-		this.view = new GameView(this);
-	}
-
-<<<<<<< HEAD
-	public int getGridSize() {
-		return gridSize;
-	}
+    private GameView view;
+    private MatchValidator match;
 
     
-}
-=======
-	public void setGridSize(int gridSize) {
+    public GameController() {
+		this.view = new GameView(this);
+    }
+    
+	public void setGridSize(int gridSize)
+	{
 		this.gridSize = gridSize;
 		match = new MatchValidator(gridSize);
-		view.showGrid();
+        view.showGrid();
 	}
->>>>>>> a55c4a1cd76be3d1637c3a90c670b3d6d1a727c1
 
+	public int getGridSize() {
+		return gridSize;
+	}    
 }
+
