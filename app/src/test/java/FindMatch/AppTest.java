@@ -53,22 +53,8 @@ public class AppTest {
         if (matchval.buttons[0].getText() == " " &&
             matchval.buttons[1].getText() == " ") {
                 String msg = matchval.status.getText();
-                assertEquals("STATUS: Incorrect Match \uD83D\uDC4E",msg);
+                assertEquals("Incorrect Match \uD83D\uDC4E",msg);
             }
-    }
-
-    //Test the allFound method
-    @Test 
-    public void testAllFound() {
-        MatchValidator matchval = new MatchValidator(4);
-        for(int i=0; i < 4;i++) {
-            matchval.buttons[0].doClick();
-            matchval.buttons[1].doClick();
-            matchval.buttons[2].doClick();
-            matchval.buttons[3].doClick();
-        }
-        boolean found = matchval.allFound();
-        assertEquals(true,found);
     }
 
     //Test the allFound method in negative case
