@@ -92,7 +92,7 @@ public class GameView extends JFrame implements ActionListener,ObserverInterface
     }
 
     public void showGrid() {
-        setVisible(true);
+        //setVisible(true);
     }
 	public void addLevelButtonListener(ActionListener listener) {
     easyButton.addActionListener(listener);

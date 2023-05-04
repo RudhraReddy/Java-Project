@@ -25,6 +25,7 @@ public class MatchValidator extends JFrame implements ActionListener {
    private int score_val = 0;
    private String scoreFilePath = "scores.txt";
    private String line ="";
+   private JLabel highscorelabel;
 
 
    public MatchValidator() {
@@ -36,7 +37,7 @@ public class MatchValidator extends JFrame implements ActionListener {
 
       mainFrame = new JFrame("Find a Match");
       mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      mainFrame.setPreferredSize(new Dimension(700, 600));
+      mainFrame.setPreferredSize(new Dimension(1000, 800));
       // mainFrame.setLayout(null);
 
       mainPanel = new JPanel();
@@ -63,7 +64,7 @@ public class MatchValidator extends JFrame implements ActionListener {
       });
 
       flipButton = new JButton("Flip for Help");
-      flipButton.setBounds(530, 490, 120, 40);
+      flipButton.setBounds(560, 490, 120, 40);
       flipButton.setEnabled(false);
       flipButton.setAlignmentX(Component.CENTER_ALIGNMENT);
       flipButton.addActionListener(new ActionListener() {
@@ -93,15 +94,21 @@ public class MatchValidator extends JFrame implements ActionListener {
       mainPanel.add(Box.createRigidArea(new Dimension(0, 50)));
 
       status = new JLabel("ALL THE BEST!");
-      status.setBounds(270, 460, 150, 100);
-      mainPanel.add(Box.createRigidArea(new Dimension(0, 50)));
-      mainPanel.add(status);
+      status.setBounds(250, 420, 700, 400);
+	  status.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
+	  mainPanel.add(status);
 
       score = new JLabel("SCORE: 0");
       score.setBounds(300, 480, 100, 100);
-      mainPanel.add(score);
-      mainFrame.add(mainPanel, BorderLayout.CENTER);
-
+	  score.setFont(new Font("Arial", Font.BOLD, 20));
+	  mainPanel.add(score);
+	  
+	  highscorelabel = new JLabel("");
+	  highscorelabel.setFont(new Font("Arial", Font.BOLD, 20));
+	  highscorelabel.setBounds(270, 480, 170, 170);
+      mainPanel.add(highscorelabel);
+      
+	  mainFrame.add(mainPanel, BorderLayout.CENTER);
       mainFrame.pack();
       mainFrame.setLocationRelativeTo(null);
       mainFrame.setVisible(true);
@@ -175,6 +182,7 @@ public class MatchValidator extends JFrame implements ActionListener {
       if (allFound()) {
          status.setText("STATUS: Congratulations! You found all matches.");
          try {
+			 int level=0;
 			 int highScore=0;
     FileReader fileReader = new FileReader("score.txt");
     BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -192,23 +200,37 @@ public class MatchValidator extends JFrame implements ActionListener {
         String value = l.substring(colonIndex + 1).trim();
         if(gridSize ==4 && l.contains("Easy"))
 		{
+			level=0;
 			highScore = Integer.parseInt(value);
         }
 		else if(gridSize ==16 && l.contains("Medium"))
 		{
+			level=1;
 			highScore = Integer.parseInt(value);
         }
 		else if(gridSize ==36 && l.contains("Medium"))
 		{
+			level=2;
 			highScore = Integer.parseInt(value);
         }
+	}
 		if (score_val > highScore) {
+		    highscorelabel.setText("High Score: " + score_val);
+            String updated_score = lines[level].substring(0, lines[level].length() - 1) + score_val;
+			lines[level] = updated_score;
 			// Write the new score_val to the file
 			FileWriter writer = new FileWriter("score.txt", false);
-			writer.write(String.valueOf(score_val));
+			for(int i = 0; i < lines.length; i++) {
+               writer.write(String.valueOf(lines[0]));
+               writer.write(System.lineSeparator()); // add newline
+            }
 			writer.close();
         }
-	    }
+		else{
+			highscorelabel.setText("High Score: " + highScore);
+		}
+
+	    
 	}catch (IOException ex) {
     ex.printStackTrace();
     }
