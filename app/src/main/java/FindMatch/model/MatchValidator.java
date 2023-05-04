@@ -24,9 +24,8 @@ public class MatchValidator extends JFrame implements ActionListener {
    private double gridDimension;
    public int score_val = 0;
    private String scoreFilePath = "scores.txt";
-   private String line ="";
+   private String line = "";
    private JLabel highscorelabel;
-
 
    public MatchValidator() {
    }
@@ -41,6 +40,7 @@ public class MatchValidator extends JFrame implements ActionListener {
 
       mainPanel = new JPanel();
       mainPanel.setLayout(null);
+      mainPanel.setBackground(Color.decode("#1d124e"));
 
       buttonPanel = new JPanel(new GridLayout((int) gridDimension, (int) gridDimension));
       buttonPanel.setPreferredSize(new Dimension(500, 500));
@@ -93,20 +93,24 @@ public class MatchValidator extends JFrame implements ActionListener {
       mainPanel.add(Box.createRigidArea(new Dimension(0, 50)));
 
       status = new JLabel("ALL THE BEST!");
+      status.setForeground(Color.WHITE);
+
       status.setBounds(240, 360, 700, 500);
       status.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
       mainPanel.add(status);
 
       score = new JLabel("SCORE: 0");
+      score.setForeground(Color.WHITE);
       score.setBounds(300, 480, 100, 100);
       score.setFont(new Font("Arial", Font.BOLD, 20));
       mainPanel.add(score);
-	  
-	  highscorelabel = new JLabel("");
-	  highscorelabel.setFont(new Font("Arial", Font.BOLD, 20));
-	  highscorelabel.setBounds(270, 480, 170, 170);
-     mainPanel.add(highscorelabel);
-     mainFrame.add(mainPanel, BorderLayout.CENTER);
+
+      highscorelabel = new JLabel("");
+      highscorelabel.setForeground(Color.WHITE);
+      highscorelabel.setFont(new Font("Arial", Font.BOLD, 20));
+      highscorelabel.setBounds(270, 480, 170, 170);
+      mainPanel.add(highscorelabel);
+      mainFrame.add(mainPanel, BorderLayout.CENTER);
       mainFrame.pack();
       mainFrame.setLocationRelativeTo(null);
       mainFrame.setVisible(true);
@@ -175,62 +179,55 @@ public class MatchValidator extends JFrame implements ActionListener {
             score.setText("Score: " + score_val);
          }
       }
-     
+
       if (allFound()) {
          status.setText("Congratulations! You Won.");
          try {
-			 int level=0;
-			 int highScore=0;
-          FileReader fileReader = new FileReader("score.txt");
-          BufferedReader bufferedReader = new BufferedReader(fileReader);
-          String line;
-          StringBuilder stringBuilder = new StringBuilder();
-          while ((line = bufferedReader.readLine()) != null) {
-            stringBuilder.append(line).append("\n");
+            int level = 0;
+            int highScore = 0;
+            FileReader fileReader = new FileReader("score.txt");
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+            StringBuilder stringBuilder = new StringBuilder();
+            while ((line = bufferedReader.readLine()) != null) {
+               stringBuilder.append(line).append("\n");
+            }
+            bufferedReader.close();
+            String fileContents = stringBuilder.toString();
+            String[] lines = fileContents.split("\n");
+            for (String l : lines) {
+               int colonIndex = l.indexOf(":");
+               String value = l.substring(colonIndex + 1).trim();
+               if (gridSize == 4 && l.contains("Easy")) {
+                  level = 0;
+                  highScore = Integer.parseInt(value);
+               } else if (gridSize == 16 && l.contains("Medium")) {
+                  level = 1;
+                  highScore = Integer.parseInt(value);
+               } else if (gridSize == 36 && l.contains("Medium")) {
+                  level = 2;
+                  highScore = Integer.parseInt(value);
+               }
+            }
+            if (score_val > highScore) {
+               highscorelabel.setText("High Score: " + score_val);
+               String updated_score = lines[level].substring(0, lines[level].length() - 1) + score_val;
+               lines[level] = updated_score;
+               // Write the new score_val to the file
+               FileWriter writer = new FileWriter("score.txt", false);
+               for (int i = 0; i < lines.length; i++) {
+                  writer.write(String.valueOf(lines[0]));
+                  writer.write(System.lineSeparator()); // add newline
+               }
+               writer.close();
+            } else
+               highscorelabel.setText("High Score: " + highScore);
+         } catch (IOException ex) {
+            ex.printStackTrace();
          }
-         bufferedReader.close();
-         String fileContents = stringBuilder.toString();
-         String[] lines = fileContents.split("\n");
-         for (String l : lines) {
-            int colonIndex = l.indexOf(":");
-            String value = l.substring(colonIndex + 1).trim();
-            if(gridSize ==4 && l.contains("Easy")){
-               level=0;
-               highScore = Integer.parseInt(value);
-            }
-            else if(gridSize ==16 && l.contains("Medium"))
-            {
-               level=1;
-               highScore = Integer.parseInt(value);
-            }
-            else if(gridSize ==36 && l.contains("Medium"))
-            {
-               level=2;
-               highScore = Integer.parseInt(value);
-            }
-         }
-         if (score_val > highScore) {
-            highscorelabel.setText("High Score: " + score_val);
-            String updated_score = lines[level].
-                                   substring(0, lines[level].length() - 1) + score_val;
-            lines[level] = updated_score;
-            // Write the new score_val to the file
-            FileWriter writer = new FileWriter("score.txt", false);
-            for(int i = 0; i < lines.length; i++) {
-               writer.write(String.valueOf(lines[0]));
-               writer.write(System.lineSeparator()); // add newline
-            }
-            writer.close();
-        }
-        else
-			highscorelabel.setText("High Score: " + highScore);	    
-	}
-   catch (IOException ex) {
-      ex.printStackTrace();
-    }
+      }
    }
-}
-   
+
    public boolean allFound() {
       for (int i = 0; i < gridSize; i++) {
          if (found[i] == 0) {

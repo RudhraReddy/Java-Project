@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="FindMatch.AppTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-05-04T01:32:19" hostname="TOUKA" time="2.141">
+<testsuite name="FindMatch.AppTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-05-04T02:37:01" hostname="TOUKA" time="1.824">
   <properties/>
-  <testcase name="testEasyButton" classname="FindMatch.AppTest" time="0.61"/>
-  <testcase name="testHardButton" classname="FindMatch.AppTest" time="0.315"/>
-  <testcase name="testMediumButton" classname="FindMatch.AppTest" time="0.216"/>
-  <testcase name="testScoreDecrement" classname="FindMatch.AppTest" time="0.361"/>
-  <testcase name="testNotAllFound" classname="FindMatch.AppTest" time="0.37"/>
-  <testcase name="testNoMatch" classname="FindMatch.AppTest" time="0.267"/>
+  <testcase name="testEasyButton" classname="FindMatch.AppTest" time="0.407"/>
+  <testcase name="testHardButton" classname="FindMatch.AppTest" time="0.288"/>
+  <testcase name="testMediumButton" classname="FindMatch.AppTest" time="0.189"/>
+  <testcase name="testScoreDecrement" classname="FindMatch.AppTest" time="0.285"/>
+  <testcase name="testNotAllFound" classname="FindMatch.AppTest" time="0.391"/>
+  <testcase name="testNoMatch" classname="FindMatch.AppTest" time="0.259"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

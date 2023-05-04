@@ -32,7 +32,7 @@ public class GameView extends JFrame implements ObserverInterface, ActionListene
         JLabel gameNameLbl = new JLabel("FIND A MATCH");
         Font font = new Font("Serif", Font.BOLD, 24);
         gameNameLbl.setFont(font);
-        gameNameLbl.setForeground(Color.WHITE); // Set font color to blue
+        gameNameLbl.setForeground(Color.WHITE);
         gameNameLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(gameNameLbl, c);
 
@@ -41,7 +41,7 @@ public class GameView extends JFrame implements ObserverInterface, ActionListene
         levelLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
         Font font1 = new Font("Serif", Font.BOLD, 18);
         levelLbl.setFont(font1);
-        levelLbl.setForeground(Color.WHITE); // Set font color to blue
+        levelLbl.setForeground(Color.WHITE);
         mainPanel.add(levelLbl, c);
 
         // Set up easy button
