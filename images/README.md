@@ -27,6 +27,6 @@ Just a stupid game of memory matching tiles game just filp the tiles and matchth
 
 - Change the congratulations screen rather than just text the Confetti come in 🎉 - Overlay screen which will say "congratulations" and gives score and HighScore
 
-![Main Menu](app\src\main\resources\Main_Menu.jpg)
+![Main Menu](/images/Main_Menu.jpg)
 
-![alt text](app\src\main\resources\lvl_view.jpg)
+![alt text](/images/lvl_view.jpg)
